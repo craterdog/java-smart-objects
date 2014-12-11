@@ -1,13 +1,21 @@
-# Java Smart Objects
+![Java Smart Objects](https://github.com/craterdog/java-smart-objects/blob/master/docs/images/Einstein.jpg)
 
-## In a Nut Shell
-This project contains various Java components that can be used to define classes that automatically
-implement the following canonical methods from the `java.lang.Object` class:
+## Java Smart Objects
+The `java.lang.Object` class defines a core set of methods that all classes should implement.
+Requiring each developer to implement these methods in each of their classes is tedious and
+error prone.  Often the implementation of one or more of those methods gets copied from class
+to class and if there is a bug in it, the bug is replicated as well. The goal of this project
+is to define a "smarter" object class that provides canonical versions of each of the following
+methods:
 
- * `toString` (as JSON)
- * `equals`
- * `compareTo`
- * `hashCode`
+ * `String toString()` (formatted as a 'censored' JSON string)
+ * `boolean equals(Object object)`
+ * `int hashCode()`
+
+Annotations that are part of this project make it possible for developers to annotate
+sensitive attributes like passwords or SS numbers so that when the `toString()` method
+is called it will _mask_ out the values stored in those sensitive attributes. This ensures
+that log files containing the smart objects don't expose the sensitive attributes.
 
 ## Highlighted Components
 The following highlights the various components that are provided by this project:
@@ -19,9 +27,9 @@ The following highlights the various components that are provided by this projec
 ## Quick Links
 For more detail on this project click on the following links:
 
- * [javadocs](http://craterdog.github.io/java-smart-objects/3.0/index.html)
+ * [javadocs](http://craterdog.github.io/java-smart-objects/latest/index.html)
  * [wiki](https://github.com/craterdog/java-smart-objects/wiki)
- * [release notes](https://github.com/craterdog/java-smart-objects/wiki/Release-Notes)
+ * [release notes](https://github.com/craterdog/java-smart-objects/wiki/releases)
  * [website](http://craterdog.com)
 
 ## Getting Started
