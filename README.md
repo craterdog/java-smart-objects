@@ -1,4 +1,4 @@
-![Java Smart Objects](https://github.com/craterdog/java-smart-objects/blob/master/docs/images/Einstein.jpg)
+![Java Smart Objects](https://github.com/craterdog/java-smart-objects/blob/master/docs/images/einstein.jpg)
 
 ## Java Smart Objects
 The `java.lang.Object` class defines a core set of methods that all classes should implement.
@@ -39,7 +39,7 @@ To get started using these utilities, include the following dependency in your m
     <dependency>
         <groupId>com.craterdog</groupId>
         <artifactId>java-smart-objects</artifactId>
-        <version>3.0</version>
+        <version>x.y</version>
     </dependency>
 ```
 
