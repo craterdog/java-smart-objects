@@ -111,7 +111,7 @@ public class SmartObjectMapperTest {
     public void testEmptyObject() throws IOException {
         logger.entry();
 
-        class TestObject extends SmartObject {
+        class TestObject extends SmartObject<TestObject> {
         }
 
         String repr = mapper.writeValueAsString(new TestObject());
@@ -120,12 +120,12 @@ public class SmartObjectMapperTest {
         logger.exit();
     }
 
-    static class PolymorphicTestObject extends SmartObject {
+    static class PolymorphicTestObject extends SmartObject<PolymorphicTestObject> {
 
         public String testAttribute = "test";
     }
 
-    static <E extends SmartObject> E polymorphicReader(SmartObjectMapper mapper) throws IOException {
+    static <E extends SmartObject<E>> E polymorphicReader(SmartObjectMapper mapper) throws IOException {
         return mapper.reader(SmartObject.class).readValue("{\"testAttribute\":\"success\"}");
     }
 

@@ -22,8 +22,10 @@ import java.io.IOException;
  * @author Jeff Webb
  * @author Mukesh Jyothi
  * @author Yan Ma
+ *
+ * @param <S> The concrete type of the smart object.
  */
-public abstract class SmartObject {
+public abstract class SmartObject<S extends SmartObject<S>> implements Comparable<S> {
 
     // define a safe mapper that censors any sensitive attributes marked with the @Sensitive annotation
     private static final SmartObjectMapper safeMapper = new SmartObjectMapper(new CensorshipModule());
@@ -45,7 +47,7 @@ public abstract class SmartObject {
         }
     }
 
-    private String toExposedString() {
+    protected String toExposedString() {
         try {
             return fullMapper.writeValueAsString(this);  // exposes any sensitive attributes!
         } catch (JsonProcessingException e) {
@@ -72,19 +74,28 @@ public abstract class SmartObject {
             return false;
         }
         @SuppressWarnings("unchecked")
-        SmartObject that = (SmartObject) object;
+        S that = (S) object;
         // NOTE: we must use the "exposed" version so that masking doesn't hide any differences!
         return this.toExposedString().equals(that.toExposedString());
+    }
+
+    @Override
+    public int compareTo(S object) {
+        if (object == null) return 1;  // everything is greater than null
+        if (this == object) {
+            return 0;
+        }
+        // NOTE: we must use the "exposed" version so that masking doesn't hide any differences!
+        return this.toExposedString().compareTo(object.toExposedString());
     }
 
     /**
      * This method should work for all objects. However, it is very inefficient and should only be
      * used sparingly and for unit testing.
      *
-     * @param <S> The concrete type of the smart object.
      * @return An exact copy of the smart object.
      */
-    public <S extends SmartObject> S copy() {
+    public S copy() {
         try {
             String fullJSON = fullMapper.writeValueAsString(this);
             @SuppressWarnings("unchecked")

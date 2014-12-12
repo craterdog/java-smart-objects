@@ -62,4 +62,24 @@ public class SmartObjectTest {
         logger.info("The copy() mnd equals() methods testing completed.");
     }
 
+    @Test
+    public void testCompareTo() throws Exception {
+        logger.info("Testing the compareTo() method for a SmartObject...");
+        DateTime now = new DateTime();
+        ExampleSmartObject object1 = new ExampleSmartObject();
+        object1.foo = "Foo";
+        object1.bar = 5;
+        object1.timestamp = now;
+        object1.card = "1234-5678-9012-3456";
+        ExampleSmartObject object2 = new ExampleSmartObject();
+        object2.foo = "Foo";
+        object2.bar = 4;
+        object2.timestamp = now;
+        object2.card = "1234-5678-9012-3456";
+        if (object1.compareTo(object2) < 1) {
+            fail("The compareTo() method failed to compare smart objects correctly.");
+        }
+        logger.info("The compareTo() method testing completed.");
+    }
+
 }

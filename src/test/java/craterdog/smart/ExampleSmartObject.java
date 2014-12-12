@@ -16,7 +16,7 @@ import org.joda.time.DateTime;
  *
  * @author Derk Norton
  */
-public class ExampleSmartObject extends SmartObject {
+public class ExampleSmartObject extends SmartObject<ExampleSmartObject> {
 
     public String foo;
     @Sensitive(type = "credit card", mask = Sensitive.MASK_CREDIT_CARD_NUMBER)
