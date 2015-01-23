@@ -176,7 +176,7 @@ public class SmartObjectMapperWithCensorshipTest {
 
     private class SSNInvalidMask {
 
-        public SSNInvalidMask(String string) {
+        SSNInvalidMask(String string) {
             ssn = string;
         }
 
@@ -190,7 +190,7 @@ public class SmartObjectMapperWithCensorshipTest {
         @Sensitive(type = "password", mask = Sensitive.MASK_PASSWORD)
         public String alphanumericPin;
 
-        public AlphanumericPin(String str) {
+        AlphanumericPin(String str) {
             this.alphanumericPin = str;
         }
     }

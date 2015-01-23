@@ -124,8 +124,8 @@ public abstract class SmartObject<S extends SmartObject<S>> implements Comparabl
      * @param serializable The type of class that can be serialized using its toString() method.
      */
     protected void addSerializableClass(Class<?> serializable) {
-        safeMapper.addMixInAnnotations(serializable, UseToStringAsValueMixIn.class);
-        fullMapper.addMixInAnnotations(serializable, UseToStringAsValueMixIn.class);
+        safeMapper.addMixIn(serializable, UseToStringAsValueMixIn.class);
+        fullMapper.addMixIn(serializable, UseToStringAsValueMixIn.class);
     }
 
     /**

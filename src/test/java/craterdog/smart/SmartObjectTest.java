@@ -30,7 +30,13 @@ public class SmartObjectTest {
             + "  \"foo\" : \"Foo\",\n"
             + "  \"card\" : \"1234-XXXX-XXXX-3456\",\n"
             + "  \"bar\" : 5,\n"
-            + "  \"timestamp\" : \"2014-04-11T04:01:14.139Z\"\n"
+            + "  \"timestamp\" : \"2014-04-11T04:01:14.139Z\",\n"
+            + "  \"list\" : [ \"alpha\", \"bravo\", \"charlie\" ],\n"
+            + "  \"map\" : {\n"
+            + "    \"1\" : 1,\n"
+            + "    \"2\" : 2,\n"
+            + "    \"3\" : 3\n"
+            + "  }\n"
             + "}";
 
     @Test

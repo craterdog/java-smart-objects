@@ -9,21 +9,36 @@
  ************************************************************************/
 package craterdog.smart;
 
-import org.joda.time.DateTime;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
- * This class implements a simple example smart object.
+ * This class implements a simple example smart map.
  *
  * @author Derk Norton
  */
-public class ExampleSmartObject extends SmartObject<ExampleSmartObject> {
+public class ExampleSmartMap extends SmartObject<ExampleSmartMap> {
 
-    public String foo;
-    @Sensitive(type = "credit card", mask = Sensitive.MASK_CREDIT_CARD_NUMBER)
-    public String card;
-    public int bar;
-    public DateTime timestamp;
-    public ExampleSmartList list = new ExampleSmartList();
-    public ExampleSmartMap map = new ExampleSmartMap();
+    private final String dummy = "SHOULD NOT GET SERIALIZED";
+    private final Map<String, Integer> map = new HashMap<>();
+
+    public ExampleSmartMap() {
+        map.put("1", 1);
+        map.put("2", 2);
+        map.put("3", 3);
+    }
+
+    @JsonCreator
+    public ExampleSmartMap(Map<String, Integer> items) {
+        map.putAll(items);
+    }
+
+    @JsonValue
+    public Map<String, Integer> toMap() {
+        return map;
+    }
 
 }
