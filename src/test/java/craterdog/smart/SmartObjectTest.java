@@ -10,8 +10,10 @@
 package craterdog.smart;
 
 import org.joda.time.DateTime;
+import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
@@ -25,6 +27,26 @@ import org.slf4j.ext.XLoggerFactory;
 public class SmartObjectTest {
 
     static private final XLogger logger = XLoggerFactory.getXLogger(SmartObjectTest.class);
+
+
+    /**
+     * Log a message at the beginning of the tests.
+     */
+    @BeforeClass
+    static public void setUpClass() {
+        logger.info("Running SmartObject Unit Tests...\n");
+    }
+
+
+    /**
+     * Log a message at the end of the tests.
+     */
+    @AfterClass
+    static public void tearDownClass() {
+        logger.info("Completed SmartObject Unit Tests.\n");
+    }
+
+
     static private final String expectedJSON
             = "{\n"
             + "  \"foo\" : \"Foo\",\n"
@@ -33,15 +55,16 @@ public class SmartObjectTest {
             + "  \"timestamp\" : \"2014-04-11T04:01:14.139Z\",\n"
             + "  \"list\" : [ \"alpha\", \"bravo\", \"charlie\" ],\n"
             + "  \"map\" : {\n"
-            + "    \"1\" : 1,\n"
-            + "    \"2\" : 2,\n"
-            + "    \"3\" : 3\n"
+            + "    \"alpha\" : 1,\n"
+            + "    \"bravo\" : 2,\n"
+            + "    \"charlie\" : 3\n"
             + "  }\n"
             + "}";
 
     @Test
     public void testToString() {
         logger.info("Testing the toString() method for a SmartObject...");
+
         ExampleSmartObject object = new ExampleSmartObject();
         object.foo = "Foo";
         object.bar = 5;
@@ -50,12 +73,14 @@ public class SmartObjectTest {
         String actualJSON = object.toString();
         assertEquals(expectedJSON, actualJSON);
         logger.info("JSON string: " + actualJSON);
+
         logger.info("The toString() method testing completed.");
     }
 
     @Test
     public void testCopyAndEquals() throws Exception {
         logger.info("Testing the copy() and equals() methods for a SmartObject...");
+
         ExampleSmartObject object = new ExampleSmartObject();
         object.foo = "Foo";
         object.bar = 5;
@@ -65,12 +90,14 @@ public class SmartObjectTest {
         if (!object.equals(copy)) {
             fail("The copied object is not equal to the original.");
         }
+
         logger.info("The copy() mnd equals() methods testing completed.");
     }
 
     @Test
     public void testCompareTo() throws Exception {
         logger.info("Testing the compareTo() method for a SmartObject...");
+
         DateTime now = new DateTime();
         ExampleSmartObject object1 = new ExampleSmartObject();
         object1.foo = "Foo";
@@ -85,6 +112,7 @@ public class SmartObjectTest {
         if (object1.compareTo(object2) < 1) {
             fail("The compareTo() method failed to compare smart objects correctly.");
         }
+
         logger.info("The compareTo() method testing completed.");
     }
 

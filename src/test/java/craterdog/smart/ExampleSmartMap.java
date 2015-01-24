@@ -11,7 +11,7 @@ package craterdog.smart;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 
@@ -23,12 +23,12 @@ import java.util.Map;
 public class ExampleSmartMap extends SmartObject<ExampleSmartMap> {
 
     private final String dummy = "SHOULD NOT GET SERIALIZED";
-    private final Map<String, Integer> map = new HashMap<>();
+    private final Map<String, Integer> map = new LinkedHashMap<>();
 
     public ExampleSmartMap() {
-        map.put("1", 1);
-        map.put("2", 2);
-        map.put("3", 3);
+        map.put("alpha", 1);
+        map.put("bravo", 2);
+        map.put("charlie", 3);
     }
 
     @JsonCreator

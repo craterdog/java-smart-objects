@@ -12,6 +12,8 @@ package craterdog.smart;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.util.HashMap;
 import org.joda.time.DateTime;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
@@ -26,6 +28,27 @@ public class SmartObjectExamplesTest {
 
     static private final XLogger logger = XLoggerFactory.getXLogger(SmartObjectExamplesTest.class);
 
+    /**
+     * Log a message at the beginning of the tests.
+     */
+    @BeforeClass
+    static public void setUpClass() {
+        logger.info("Running SmartObject Example Unit Tests...\n");
+    }
+
+
+    /**
+     * Log a message at the end of the tests.
+     */
+    @AfterClass
+    static public void tearDownClass() {
+        logger.info("Completed SmartObject Example Unit Tests.\n");
+    }
+
+
+    /**
+     * This is an example smart object class with sensitive attributes.
+     */
     public class Customer extends SmartObject<Customer> {
         public String name;
         @Sensitive(type = "credit card", mask = Sensitive.MASK_CREDIT_CARD_NUMBER)
@@ -43,14 +66,14 @@ public class SmartObjectExamplesTest {
         String ssNumber = "123-45-6789";
         String mask = "^\\d{1}(\\d{2})-(\\d{2})-(\\d{2})\\d{2}$";
         String maskedNumber = censor.process(ssNumber, mask);
-        logger.info("The masked SS number is {}", maskedNumber);
+        logger.info("  The masked SS number is {}", maskedNumber);
 
         Customer customer = new Customer();
         customer.name = "Derk Norton";
         customer.cardNumber = "1234-5678-9012-3456";
         customer.emailAddress = "craterdog@gmail.com";
         customer.lastPurchase = new DateTime();
-        logger.info("The customer information is {}", customer);
+        logger.info("  The customer information is {}", customer);
 
         SmartObjectMapper mapper = new SmartObjectMapper();
         HashMap<String, Object> map = new HashMap<>();
@@ -58,11 +81,11 @@ public class SmartObjectExamplesTest {
         String[] values = { "rock", "paper", "scissors", "lizard", "spock" };
         map.put("values", values);
         String json = mapper.writeValueAsString(map);
-        logger.info("The JSON string is {}", json);
+        logger.info("  The JSON string is {}", json);
 
         mapper = new SmartObjectMapper(new CensorshipModule());
         json = mapper.writeValueAsString(customer);
-        logger.info("The JSON string is {}", json);
+        logger.info("  The JSON string is {}", json);
 
         logger.info("The code examples testing completed.");
     }
