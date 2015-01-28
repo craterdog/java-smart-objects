@@ -10,6 +10,9 @@
 package craterdog.smart;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.PrettyPrinter;
+import com.fasterxml.jackson.core.util.DefaultIndenter;
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.Module;
 import java.io.IOException;
 
@@ -33,6 +36,7 @@ public abstract class SmartObject<S extends SmartObject<S>> implements Comparabl
     // define a full mapper that outputs all attributes as stored
     private static final SmartObjectMapper fullMapper = new SmartObjectMapper();
 
+    private static final PrettyPrinter printer = new DefaultPrettyPrinter().withArrayIndenter(new DefaultIndenter());
     /**
      * This method returns a string containing a structured, human readable version of the object.
      *
@@ -41,7 +45,7 @@ public abstract class SmartObject<S extends SmartObject<S>> implements Comparabl
     @Override
     public String toString() {
         try {
-            return safeMapper.writeValueAsString(this);  // masks any sensitive attributes!
+            return safeMapper.writer(printer).writeValueAsString(this);  // masks any sensitive attributes!
         } catch (JsonProcessingException e) {
             throw new RuntimeException("The attempt to map an object to a string failed", e);
         }
@@ -49,7 +53,7 @@ public abstract class SmartObject<S extends SmartObject<S>> implements Comparabl
 
     protected String toExposedString() {
         try {
-            return fullMapper.writeValueAsString(this);  // exposes any sensitive attributes!
+            return fullMapper.writer(printer).writeValueAsString(this);  // exposes any sensitive attributes!
         } catch (JsonProcessingException e) {
             throw new RuntimeException("The attempt to map an object to a string failed", e);
         }

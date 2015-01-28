@@ -10,6 +10,10 @@
 package craterdog.smart;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.PrettyPrinter;
+import com.fasterxml.jackson.core.util.DefaultIndenter;
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -60,6 +64,23 @@ public class SmartObjectMapper extends ObjectMapper {
             registerModule(module);
         }
 
+    }
+
+
+    @Override
+    public String writeValueAsString(Object value) throws JsonProcessingException {
+        return writer(_defaultPrettyPrinter()).writeValueAsString(value);
+    }
+
+
+    // NOTE: This looks like it would set the default pretty printer for all uses by
+    // the object mapper but it does NOT.  I think this is a case of the original
+    // intent changing or being lost over time.  There is an enhancement request to
+    // address this problem, for more details see:
+    // https://github.com/FasterXML/jackson-databind/issues/689.
+    @Override
+    protected PrettyPrinter _defaultPrettyPrinter() {
+        return new DefaultPrettyPrinter().withArrayIndenter(new DefaultIndenter());
     }
 
 }
