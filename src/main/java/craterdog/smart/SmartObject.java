@@ -10,10 +10,8 @@
 package craterdog.smart;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.PrettyPrinter;
-import com.fasterxml.jackson.core.util.DefaultIndenter;
-import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.Module;
+import craterdog.core.Composite;
 import java.io.IOException;
 
 /**
@@ -28,7 +26,7 @@ import java.io.IOException;
  *
  * @param <S> The concrete type of the smart object.
  */
-public abstract class SmartObject<S extends SmartObject<S>> implements Comparable<S> {
+public abstract class SmartObject<S extends SmartObject<S>> implements Comparable<S>, Composite {
 
     // define a safe mapper that censors any sensitive attributes marked with the @Sensitive annotation
     private static final SmartObjectMapper safeMapper = new SmartObjectMapper(new CensorshipModule());
@@ -36,28 +34,48 @@ public abstract class SmartObject<S extends SmartObject<S>> implements Comparabl
     // define a full mapper that outputs all attributes as stored
     private static final SmartObjectMapper fullMapper = new SmartObjectMapper();
 
-    private static final PrettyPrinter printer = new DefaultPrettyPrinter().withArrayIndenter(new DefaultIndenter());
+
     /**
      * This method returns a string containing a structured, human readable version of the object.
+     * The string is formatted in Javascript Object Notation (JSON).
      *
-     * @return The string version of the object.
+     * @return The formatted JSON string.
      */
     @Override
     public String toString() {
         try {
-            return safeMapper.writer(printer).writeValueAsString(this);  // masks any sensitive attributes!
+            return safeMapper.writeValueAsString(this);  // masks any sensitive attributes!
         } catch (JsonProcessingException e) {
             throw new RuntimeException("The attempt to map an object to a string failed", e);
         }
     }
 
-    protected String toExposedString() {
+
+    @Override
+    public String toString(String indentation) {
         try {
-            return fullMapper.writer(printer).writeValueAsString(this);  // exposes any sensitive attributes!
+            return safeMapper.writeValueAsString(this, indentation);  // masks any sensitive attributes!
         } catch (JsonProcessingException e) {
             throw new RuntimeException("The attempt to map an object to a string failed", e);
         }
     }
+
+
+    /**
+     * This method behaves similarly to the <code>toString()</code> method except that it
+     * does not perform any censorship of sensitive attributes. It should only be used when
+     * the resulting output will not be stored or seen by anyone.
+     *
+     * @return The formatted JSON string.
+     */
+    protected String toExposedString() {
+        try {
+            return fullMapper.writeValueAsString(this);  // exposes any sensitive attributes!
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("The attempt to map an object to a string failed", e);
+        }
+    }
+
 
     /**
      * This method determines whether or not two objects are equal. Two objects are equal if they
@@ -83,6 +101,7 @@ public abstract class SmartObject<S extends SmartObject<S>> implements Comparabl
         return this.toExposedString().equals(that.toExposedString());
     }
 
+
     @Override
     public int compareTo(S object) {
         if (object == null) return 1;  // everything is greater than null
@@ -92,6 +111,7 @@ public abstract class SmartObject<S extends SmartObject<S>> implements Comparabl
         // NOTE: we must use the "exposed" version so that masking doesn't hide any differences!
         return this.toExposedString().compareTo(object.toExposedString());
     }
+
 
     /**
      * This method should work for all objects. However, it is very inefficient and should only be
@@ -110,6 +130,7 @@ public abstract class SmartObject<S extends SmartObject<S>> implements Comparabl
         }
     }
 
+
     /**
      * This method returns a hash code for the object based on its string form. This is not a very
      * efficient method.
@@ -121,6 +142,7 @@ public abstract class SmartObject<S extends SmartObject<S>> implements Comparabl
         return toExposedString().hashCode();
     }
 
+
     /**
      * This protected method allows a subclass to add a class type that can be serialized using its
      * toString() method to the mappers.
@@ -131,6 +153,7 @@ public abstract class SmartObject<S extends SmartObject<S>> implements Comparabl
         safeMapper.addMixIn(serializable, UseToStringAsValueMixIn.class);
         fullMapper.addMixIn(serializable, UseToStringAsValueMixIn.class);
     }
+
 
     /**
      * This protected method allows a subclass to add a Jackson module to the set of modules used by

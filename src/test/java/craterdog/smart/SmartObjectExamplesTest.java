@@ -50,14 +50,35 @@ public class SmartObjectExamplesTest {
      * This is an example smart object class with sensitive attributes.
      */
     public class Customer extends SmartObject<Customer> {
+
+        /**
+         * A regular attribute.
+         */
         public String name;
+
+        /**
+         * A sensitive attribute.
+         */
         @Sensitive(type = "credit card", mask = Sensitive.MASK_CREDIT_CARD_NUMBER)
         public String cardNumber;
+
+        /**
+         * Another sensitive attribute.
+         */
         @Sensitive(type = "email address", mask = Sensitive.MASK_EMAIL_ADDRESS)
         public String emailAddress;
+
+        /**
+         * Another regular attribute.
+         */
         public DateTime lastPurchase;
     }
 
+    /**
+     * This unit test method tests the code examples listed at the wiki.
+     *
+     * @throws JsonProcessingException
+     */
     @Test
     public void testCodeExamples() throws JsonProcessingException {
         logger.info("Testing the code examples for SmartObject...");

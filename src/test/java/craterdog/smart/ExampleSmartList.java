@@ -25,17 +25,30 @@ public class ExampleSmartList extends SmartObject<ExampleSmartList> {
     private final String dummy = "SHOULD NOT GET SERIALIZED";
     private final List<String> list = new ArrayList<>();
 
+    /**
+     * This is the default constructor.
+     */
     public ExampleSmartList() {
         list.add("alpha");
         list.add("bravo");
         list.add("charlie");
     }
 
+    /**
+     * This constructor seeds the list with items.
+     *
+     * @param items The items to be used to seed the list.
+     */
     @JsonCreator
     public ExampleSmartList(List<String> items) {
         list.addAll(items);
     }
 
+    /**
+     * This method is used to generate a JSON representation of the list.
+     *
+     * @return A JSON representation of the list.
+     */
     @JsonValue
     public List<String> toList() {
         return list;

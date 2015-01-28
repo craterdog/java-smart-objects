@@ -65,6 +65,27 @@ public class SmartObjectTest {
             + "  }\n"
             + "}";
 
+    static private final String indentedJSON
+            = "{\n"
+            + "      \"foo\" : \"Foo\",\n"
+            + "      \"card\" : \"1234-XXXX-XXXX-3456\",\n"
+            + "      \"bar\" : 5,\n"
+            + "      \"timestamp\" : \"2014-04-11T04:01:14.139Z\",\n"
+            + "      \"list\" : [\n"
+            + "        \"alpha\",\n"
+            + "        \"bravo\",\n"
+            + "        \"charlie\"\n"
+            + "      ],\n"
+            + "      \"map\" : {\n"
+            + "        \"alpha\" : 1,\n"
+            + "        \"bravo\" : 2,\n"
+            + "        \"charlie\" : 3\n"
+            + "      }\n"
+            + "    }";
+
+    /**
+     * This unit test method tests the toString() method.
+     */
     @Test
     public void testToString() {
         logger.info("Testing the toString() method for a SmartObject...");
@@ -76,13 +97,35 @@ public class SmartObjectTest {
         object.card = "1234-5678-9012-3456";
         String actualJSON = object.toString();
         assertEquals(expectedJSON, actualJSON);
-        logger.info("JSON string: " + actualJSON);
+        logger.info("  The JSON string: " + actualJSON);
 
         logger.info("The toString() method testing completed.");
     }
 
+    /**
+     * This unit test method tests the toString(String indentation) method.
+     */
     @Test
-    public void testCopyAndEquals() throws Exception {
+    public void testToStringWithIndent() {
+        logger.info("Testing the toString(indentation) method for a SmartObject...");
+
+        ExampleSmartObject object = new ExampleSmartObject();
+        object.foo = "Foo";
+        object.bar = 5;
+        object.timestamp = new DateTime("2014-04-11T04:01:14.139Z");
+        object.card = "1234-5678-9012-3456";
+        String actualJSON = object.toString("    ");
+        assertEquals(indentedJSON, actualJSON);
+        logger.info("  The indented JSON string: " + actualJSON);
+
+        logger.info("The toString(indentation) method testing completed.");
+    }
+
+    /**
+     * This unit test method tests the copy() and equals(Object object) methods.
+     */
+    @Test
+    public void testCopyAndEquals() {
         logger.info("Testing the copy() and equals() methods for a SmartObject...");
 
         ExampleSmartObject object = new ExampleSmartObject();
@@ -92,14 +135,17 @@ public class SmartObjectTest {
         object.card = "1234-5678-9012-3456";
         ExampleSmartObject copy = object.copy();
         if (!object.equals(copy)) {
-            fail("The copied object is not equal to the original.");
+            fail("  The ihe copied object is not equal to the original.");
         }
 
         logger.info("The copy() mnd equals() methods testing completed.");
     }
 
+    /**
+     * This unit test method tests the compareTo(Object object) method.
+     */
     @Test
-    public void testCompareTo() throws Exception {
+    public void testCompareTo() {
         logger.info("Testing the compareTo() method for a SmartObject...");
 
         DateTime now = new DateTime();
@@ -114,7 +160,7 @@ public class SmartObjectTest {
         object2.timestamp = now;
         object2.card = "1234-5678-9012-3456";
         if (object1.compareTo(object2) < 1) {
-            fail("The compareTo() method failed to compare smart objects correctly.");
+            fail("  The The compareTo() method failed to compare smart objects correctly.");
         }
 
         logger.info("The compareTo() method testing completed.");

@@ -48,7 +48,11 @@ public class SmartObjectMapperWithCensorshipTest {
         logger.info("Completed SmartObjectMapper Unit Tests.\n");
     }
 
-
+    /**
+     * This unit test method tests the masking of a SS number.
+     *
+     * @throws JsonProcessingException
+     */
     @Test
     public void testMaskSSN() throws JsonProcessingException {
         logger.info("Testing masked social security number...");
@@ -62,7 +66,11 @@ public class SmartObjectMapperWithCensorshipTest {
         logger.info("Masked social security number testing completed.\n");
     }
 
-
+    /**
+     * This unit test method tests the masking of a email address.
+     *
+     * @throws JsonProcessingException
+     */
     @Test
     public void testMaskEmail() throws JsonProcessingException {
         logger.info("Testing masked email address...");
@@ -76,7 +84,11 @@ public class SmartObjectMapperWithCensorshipTest {
         logger.info("Masked email address testing completed.\n");
     }
 
-
+    /**
+     * This unit test method tests the masking of an invalid email address.
+     *
+     * @throws JsonProcessingException
+     */
     @Test
     public void testMaskInvalidEmail() throws JsonProcessingException {
         logger.info("Testing masked invalid email address...");
@@ -90,7 +102,11 @@ public class SmartObjectMapperWithCensorshipTest {
         logger.info("Masked invalid email address testing completed.\n");
     }
 
-
+    /**
+     * This unit test method tests the masking of a credit card number.
+     *
+     * @throws JsonProcessingException
+     */
     @Test
     public void testMaskCreditCardNumber() throws JsonProcessingException {
         logger.info("Testing masked credit card number...");
@@ -104,7 +120,11 @@ public class SmartObjectMapperWithCensorshipTest {
         logger.info("Masked credit card number testing completed.\n");
     }
 
-
+    /**
+     * This unit test method tests the masking of another credit card number.
+     *
+     * @throws JsonProcessingException
+     */
     @Test
     public void testMaskCreditCardNumber2() throws JsonProcessingException {
         logger.info("Testing another masked credit card number...");
@@ -118,7 +138,11 @@ public class SmartObjectMapperWithCensorshipTest {
         logger.info("Another masked credit card number testing completed.\n");
     }
 
-
+    /**
+     * This unit test method tests the masking of a null attribute.
+     *
+     * @throws JsonProcessingException
+     */
     @Test
     public void testNullProperty() throws JsonProcessingException {
         logger.info("Testing masked null social security number...");
@@ -131,7 +155,11 @@ public class SmartObjectMapperWithCensorshipTest {
         logger.info("Masked null social security number testing completed.\n");
     }
 
-
+    /**
+     * This unit test method tests an invalid masking pattern.
+     *
+     * @throws JsonProcessingException
+     */
     @Test
     public void testInvalidMaskPattern() throws JsonProcessingException {
         logger.info("Testing invalid mask pattern...");
@@ -144,7 +172,11 @@ public class SmartObjectMapperWithCensorshipTest {
         logger.info("Invalid mask pattern testing completed.\n");
     }
 
-
+    /**
+     * This unit test method tests the masking of an alpha-numeric PIN.
+     *
+     * @throws JsonProcessingException
+     */
     @Test
     public void testAlphanumericPins() throws JsonProcessingException {
         logger.info("Testing masked alphanumeric PINs...");
@@ -187,7 +219,11 @@ public class SmartObjectMapperWithCensorshipTest {
         logger.info("Masked alphanumeric PINs testing completed.\n");
     }
 
-
+    /**
+     * This unit test method tests the masking of an empty alpha-numeric PIN.
+     *
+     * @throws JsonProcessingException
+     */
     @Test
     public void testEmptyAlphanumericPin() throws JsonProcessingException {
         logger.info("Testing masked empty alphanumeric PIN...");
@@ -200,7 +236,11 @@ public class SmartObjectMapperWithCensorshipTest {
         logger.info("Masked empty alphanumeric PIN testing completed.\n");
     }
 
-
+    /**
+     * This unit test method tests the masking of an alpha-numeric PIN that is too short.
+     *
+     * @throws JsonProcessingException
+     */
     @Test
     public void testAlphanumericPinUnderMinimumLength() throws JsonProcessingException {
         logger.info("Testing masked alphanumeric PIN that is too small...");

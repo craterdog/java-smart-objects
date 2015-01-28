@@ -18,12 +18,35 @@ import org.joda.time.DateTime;
  */
 public class ExampleSmartObject extends SmartObject<ExampleSmartObject> {
 
+    /**
+     * An example attribute.
+     */
     public String foo;
+
+    /**
+     * An example sensitive attribute.
+     */
     @Sensitive(type = "credit card", mask = Sensitive.MASK_CREDIT_CARD_NUMBER)
     public String card;
+
+    /**
+     * Another example attribute.
+     */
     public int bar;
+
+    /**
+     * A slightly more complex attribute.
+     */
     public DateTime timestamp;
+
+    /**
+     * A nested list attribute.
+     */
     public ExampleSmartList list = new ExampleSmartList();
+
+    /**
+     * A nested map attribute.
+     */
     public ExampleSmartMap map = new ExampleSmartMap();
 
 }

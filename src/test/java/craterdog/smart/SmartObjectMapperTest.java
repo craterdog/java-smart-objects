@@ -56,7 +56,11 @@ public class SmartObjectMapperTest {
         logger.info("Completed SmartObjectMapper Unit Tests.\n");
     }
 
-
+    /**
+     * This unit test method tests the formatting of regular Java Dates.
+     *
+     * @throws IOException
+     */
     @Test
     public void testJavaDateFormatting() throws IOException {
         logger.info("Testing embedded Java Date formatting...");
@@ -81,6 +85,11 @@ public class SmartObjectMapperTest {
         logger.info("Embedded Java Date manipulation testing completed.\n");
     }
 
+    /**
+     * This unit test method tests the formatting of Joda Dates.
+     *
+     * @throws IOException
+     */
     @Test
     public void testJodaDateFormatting() throws IOException {
         logger.info("Testing embedded Joda Date formatting...");
@@ -103,6 +112,11 @@ public class SmartObjectMapperTest {
         logger.info("Embedded Java Date manipulation testing completed.\n");
     }
 
+    /**
+     * This unit test method makes sure that nulls are suppressed when found in maps.
+     *
+     * @throws IOException
+     */
     @Test
     public void testNullsSuppressedInMaps() throws IOException {
         logger.info("Testing suppression of nulls in maps...");
@@ -119,6 +133,11 @@ public class SmartObjectMapperTest {
         logger.info("Suppression of nulls in maps testing completed.\n");
     }
 
+    /**
+     * This unit test method makes sure that nulls are suppressed when found in composite objects.
+     *
+     * @throws IOException
+     */
     @Test
     public void testNullPropertiesSuppressed() throws IOException {
         logger.info("Testing suppression of null properties...");
@@ -134,6 +153,11 @@ public class SmartObjectMapperTest {
         logger.info("Suppression of null properties testing completed.\n");
     }
 
+    /**
+     * This unit test method makes sure that an object that has no attributes still works.
+     *
+     * @throws IOException
+     */
     @Test
     public void testEmptyObject() throws IOException {
         logger.info("Testing empty objects...");
@@ -155,6 +179,11 @@ public class SmartObjectMapperTest {
         return mapper.reader(SmartObject.class).readValue("{\"testAttribute\":\"success\"}");
     }
 
+    /**
+     * This unit test method tests a polymorphic object.
+     *
+     * @throws IOException
+     */
     @Test
     public void testPolymorphicObject() throws IOException {
         logger.info("Testing polymorphic objects...");

@@ -25,17 +25,31 @@ public class ExampleSmartMap extends SmartObject<ExampleSmartMap> {
     private final String dummy = "SHOULD NOT GET SERIALIZED";
     private final Map<String, Integer> map = new LinkedHashMap<>();
 
+    /**
+     * The default constructor.
+     *
+     */
     public ExampleSmartMap() {
         map.put("alpha", 1);
         map.put("bravo", 2);
         map.put("charlie", 3);
     }
 
+    /**
+     * This constructor is used to seed the map with items.
+     *
+     * @param items The items to be used to seed the map.
+     */
     @JsonCreator
     public ExampleSmartMap(Map<String, Integer> items) {
         map.putAll(items);
     }
 
+    /**
+     * This method returns a JSON representation of the map.
+     *
+     * @return A JSON representation of the map.
+     */
     @JsonValue
     public Map<String, Integer> toMap() {
         return map;

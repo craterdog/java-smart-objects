@@ -67,9 +67,15 @@
     </developers>
 
     <properties>
+        <java-core-interfaces-version>3.2</java-core-interfaces-version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.craterdog</groupId>
+            <artifactId>java-core-interfaces</artifactId>
+            <version>${java-core-interfaces-version}</version>
+        </dependency>
     </dependencies>
 
     <scm>
