@@ -128,12 +128,13 @@ public class SmartObjectTest {
     public void testCopyAndEquals() {
         logger.info("Testing the copy() and equals() methods for a SmartObject...");
 
-        ExampleSmartObject object = new ExampleSmartObject();
+        ExampleSmartSubclass object = new ExampleSmartSubclass();
         object.foo = "Foo";
         object.bar = 5;
+        object.baz = "Baz";
         object.timestamp = new DateTime();
         object.card = "1234-5678-9012-3456";
-        ExampleSmartObject copy = object.copy();
+        ExampleSmartSubclass copy = object.copy();
         if (!object.equals(copy)) {
             fail("  The ihe copied object is not equal to the original.");
         }
@@ -149,14 +150,16 @@ public class SmartObjectTest {
         logger.info("Testing the compareTo() method for a SmartObject...");
 
         DateTime now = new DateTime();
-        ExampleSmartObject object1 = new ExampleSmartObject();
+        ExampleSmartSubclass object1 = new ExampleSmartSubclass();
         object1.foo = "Foo";
         object1.bar = 5;
+        object1.baz = "Baz";
         object1.timestamp = now;
         object1.card = "1234-5678-9012-3456";
-        ExampleSmartObject object2 = new ExampleSmartObject();
+        ExampleSmartSubclass object2 = new ExampleSmartSubclass();
         object2.foo = "Foo";
         object2.bar = 4;
+        object2.baz = "Baz";
         object2.timestamp = now;
         object2.card = "1234-5678-9012-3456";
         if (object1.compareTo(object2) < 1) {

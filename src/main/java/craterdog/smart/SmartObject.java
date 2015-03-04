@@ -117,13 +117,14 @@ public abstract class SmartObject<S extends SmartObject<S>> implements Comparabl
      * This method should work for all objects. However, it is very inefficient and should only be
      * used sparingly and for unit testing.
      *
+     * @param <T> The concrete type of the smart object.
      * @return An exact copy of the smart object.
      */
-    public S copy() {
+    public <T extends S> T copy() {
         try {
             String fullJSON = fullMapper.writeValueAsString(this);
             @SuppressWarnings("unchecked")
-            S copy = (S) fullMapper.readValue(fullJSON, getClass());
+            T copy = (T) fullMapper.readValue(fullJSON, getClass());
             return copy;
         } catch (IOException e) {
             throw new RuntimeException("The attempted copy of an object failed.", e);
