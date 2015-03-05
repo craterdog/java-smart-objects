@@ -120,7 +120,7 @@ public abstract class SmartObject<S extends SmartObject<S>> implements Comparabl
      * @param <T> The concrete type of the smart object.
      * @return An exact copy of the smart object.
      */
-    public <T extends S> T copy() {
+    public <T extends SmartObject<S>> T copy() {
         try {
             String fullJSON = fullMapper.writeValueAsString(this);
             @SuppressWarnings("unchecked")
