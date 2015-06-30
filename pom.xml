@@ -68,7 +68,7 @@
 
     <properties>
         <java-core-interfaces-version>3.2</java-core-interfaces-version>
-        <java-primitive-types-version>3.5-SNAPSHOT</java-primitive-types-version>
+        <java-primitive-types-version>3.5</java-primitive-types-version>
     </properties>
 
     <dependencies>
