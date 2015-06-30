@@ -59,6 +59,16 @@ public class SmartObjectMapper extends ObjectMapper {
         // handle joda types
         registerModule(new JodaModule());
 
+        // handle primitive types that can generate strings
+        addMixIn(craterdog.primitives.BinaryString.class, UseToStringAsValueMixIn.class);
+        addMixIn(craterdog.primitives.Tag.class, UseToStringAsValueMixIn.class);
+        addMixIn(craterdog.primitives.TextString.class, UseToStringAsValueMixIn.class);
+        addMixIn(java.net.URI.class, UseToStringAsValueMixIn.class);
+
+        // handle primitive types that can generate doubles
+        addMixIn(craterdog.primitives.Angle.class, UseToDoubleAsValueMixIn.class);
+        addMixIn(craterdog.primitives.Probability.class, UseToDoubleAsValueMixIn.class);
+
         // add any additional modules passed in
         for (Module module : modules) {
             registerModule(module);

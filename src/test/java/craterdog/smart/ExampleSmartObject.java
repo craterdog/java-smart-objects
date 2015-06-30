@@ -9,6 +9,12 @@
  ************************************************************************/
 package craterdog.smart;
 
+import craterdog.primitives.Angle;
+import craterdog.primitives.BinaryString;
+import craterdog.primitives.Probability;
+import craterdog.primitives.Tag;
+import craterdog.primitives.TextString;
+import java.net.URI;
 import org.joda.time.DateTime;
 
 /**
@@ -38,6 +44,13 @@ public class ExampleSmartObject extends SmartObject<ExampleSmartObject> {
      * A slightly more complex attribute.
      */
     public DateTime timestamp;
+
+    public Angle angle;
+    public BinaryString binary;
+    public Probability probability;
+    public Tag tag;
+    public TextString text;
+    public URI uri;
 
     /**
      * A nested list attribute.

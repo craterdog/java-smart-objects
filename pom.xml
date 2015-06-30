@@ -68,6 +68,7 @@
 
     <properties>
         <java-core-interfaces-version>3.2</java-core-interfaces-version>
+        <java-primitive-types-version>3.5-SNAPSHOT</java-primitive-types-version>
     </properties>
 
     <dependencies>
@@ -75,6 +76,11 @@
             <groupId>com.craterdog</groupId>
             <artifactId>java-core-interfaces</artifactId>
             <version>${java-core-interfaces-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.craterdog</groupId>
+            <artifactId>java-primitive-types</artifactId>
+            <version>${java-primitive-types-version}</version>
         </dependency>
     </dependencies>
 

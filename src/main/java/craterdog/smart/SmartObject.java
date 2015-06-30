@@ -28,6 +28,14 @@ import java.io.IOException;
  */
 public abstract class SmartObject<S extends SmartObject<S>> implements Comparable<S>, Composite {
 
+    /*
+    NOTE: the following mappers are defined as static attributes so that they are shared across
+    all smart objects of all types.  The ObjectMapper class is thread-safe when used this way
+    but it is important to note that all serializable classes or modules that are added for one
+    subclass of SmartObject affect all subclasses of SmartObject.  In general this is still worth
+    the performance benefits of the shared ObjectMappers.
+    */
+
     // define a safe mapper that censors any sensitive attributes marked with the @Sensitive annotation
     private static final SmartObjectMapper safeMapper = new SmartObjectMapper(new CensorshipModule());
 
