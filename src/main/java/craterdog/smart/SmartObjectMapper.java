@@ -91,7 +91,7 @@ public class SmartObjectMapper extends ObjectMapper {
      * @param value The smart object to be written out as a string.
      * @param indentation The indentation string to be prepended to each line.
      * @return The formatted string.
-     * @throws JsonProcessingException
+     * @throws JsonProcessingException The JSON object mapper was not able to serialize the object.
      */
     public String writeValueAsString(Object value, String indentation) throws JsonProcessingException {
         return writer(_defaultPrettyPrinter(indentation)).writeValueAsString(value);
