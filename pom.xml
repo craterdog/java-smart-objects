@@ -67,16 +67,10 @@
     </developers>
 
     <properties>
-        <java-core-interfaces-version>3.2</java-core-interfaces-version>
-        <java-primitive-types-version>3.5</java-primitive-types-version>
+        <java-primitive-types-version>3.6</java-primitive-types-version>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.craterdog</groupId>
-            <artifactId>java-core-interfaces</artifactId>
-            <version>${java-core-interfaces-version}</version>
-        </dependency>
         <dependency>
             <groupId>com.craterdog</groupId>
             <artifactId>java-primitive-types</artifactId>
