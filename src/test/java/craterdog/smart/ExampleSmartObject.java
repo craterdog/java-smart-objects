@@ -24,42 +24,21 @@ import org.joda.time.DateTime;
  */
 public class ExampleSmartObject extends SmartObject<ExampleSmartObject> {
 
-    /**
-     * An example attribute.
-     */
-    public String foo;
-
-    /**
-     * An example sensitive attribute.
-     */
-    @Sensitive(type = "credit card", mask = Sensitive.MASK_CREDIT_CARD_NUMBER)
-    public String card;
-
-    /**
-     * Another example attribute.
-     */
     public int bar;
+    public double pi = Math.PI;
+    public DateTime timestamp = new DateTime("2015-08-28T19:59:55.585Z");
+    public Angle angle = new Angle(2 * pi);
+    public BinaryString binary = new BinaryString("0123456789ABCDEF");
+    public Probability probability = new Probability(0.5);
+    public Tag tag = new Tag("L97CRGYM17CRGFV2C43FKRJWRYK09WHH");
+    public TextString text = new TextString("This is a test string.");
+    public URI uri = URI.create("http://google.com");
+    public String foo = "This is another test string.";
 
-    /**
-     * A slightly more complex attribute.
-     */
-    public DateTime timestamp;
+    @Sensitive(type = "credit card", mask = Sensitive.MASK_CREDIT_CARD_NUMBER)
+    public String card = "1234-5678-9012-3456";
 
-    public Angle angle;
-    public BinaryString binary;
-    public Probability probability;
-    public Tag tag;
-    public TextString text;
-    public URI uri;
-
-    /**
-     * A nested list attribute.
-     */
     public ExampleSmartList list = new ExampleSmartList();
-
-    /**
-     * A nested map attribute.
-     */
     public ExampleSmartMap map = new ExampleSmartMap();
 
 }

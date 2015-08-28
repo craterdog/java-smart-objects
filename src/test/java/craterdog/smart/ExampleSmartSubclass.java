@@ -17,9 +17,6 @@ package craterdog.smart;
  */
 public class ExampleSmartSubclass extends ExampleSmartObject {
 
-    /**
-     * An example attribute.
-     */
-    public String baz;
+    public String baz = "BAZ";
 
 }

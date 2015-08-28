@@ -9,14 +9,7 @@
  ************************************************************************/
 package craterdog.smart;
 
-import craterdog.primitives.Angle;
-import craterdog.primitives.BinaryString;
-import craterdog.primitives.Probability;
-import craterdog.primitives.Tag;
-import craterdog.primitives.TextString;
-import java.net.URI;
 import java.net.URISyntaxException;
-import org.joda.time.DateTime;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -35,7 +28,54 @@ public class SmartObjectTest {
 
     static private final XLogger logger = XLoggerFactory.getXLogger(SmartObjectTest.class);
 
-    static private final byte[] bytes = { 81 };
+    static private final String expectedJson = "{\n" +
+        "  \"bar\" : 0,\n" +
+        "  \"pi\" : 3.141592653589793,\n" +
+        "  \"timestamp\" : \"2015-08-28T19:59:55.585Z\",\n" +
+        "  \"angle\" : 0.0,\n" +
+        "  \"binary\" : \"0123456789ABCDEF\",\n" +
+        "  \"probability\" : 0.5,\n" +
+        "  \"tag\" : \"L97CRGYM17CRGFV2C43FKRJWRYK09WHH\",\n" +
+        "  \"text\" : \"This is a test string.\",\n" +
+        "  \"uri\" : \"http://google.com\",\n" +
+        "  \"foo\" : \"This is another test string.\",\n" +
+        "  \"card\" : \"1234-XXXX-XXXX-3456\",\n" +
+        "  \"list\" : [\n" +
+        "    \"alpha\",\n" +
+        "    \"bravo\",\n" +
+        "    \"charlie\"\n" +
+        "  ],\n" +
+        "  \"map\" : {\n" +
+        "    \"alpha\" : 1,\n" +
+        "    \"bravo\" : 2,\n" +
+        "    \"charlie\" : 3\n" +
+        "  }\n" +
+        "}";
+
+    static private final String indentedJson = "{\n" +
+        "      \"bar\" : 0,\n" +
+        "      \"pi\" : 3.141592653589793,\n" +
+        "      \"timestamp\" : \"2015-08-28T19:59:55.585Z\",\n" +
+        "      \"angle\" : 0.0,\n" +
+        "      \"binary\" : \"0123456789ABCDEF\",\n" +
+        "      \"probability\" : 0.5,\n" +
+        "      \"tag\" : \"L97CRGYM17CRGFV2C43FKRJWRYK09WHH\",\n" +
+        "      \"text\" : \"This is a test string.\",\n" +
+        "      \"uri\" : \"http://google.com\",\n" +
+        "      \"foo\" : \"This is another test string.\",\n" +
+        "      \"card\" : \"1234-XXXX-XXXX-3456\",\n" +
+        "      \"list\" : [\n" +
+        "        \"alpha\",\n" +
+        "        \"bravo\",\n" +
+        "        \"charlie\"\n" +
+        "      ],\n" +
+        "      \"map\" : {\n" +
+        "        \"alpha\" : 1,\n" +
+        "        \"bravo\" : 2,\n" +
+        "        \"charlie\" : 3\n" +
+        "      }\n" +
+        "    }";
+
 
     /**
      * Log a message at the beginning of the tests.
@@ -55,54 +95,6 @@ public class SmartObjectTest {
     }
 
 
-    static private final String expectedJSON
-            = "{\n"
-            + "  \"foo\" : \"Foo\",\n"
-            + "  \"card\" : \"1234-XXXX-XXXX-3456\",\n"
-            + "  \"bar\" : 5,\n"
-            + "  \"timestamp\" : \"2014-04-11T04:01:14.139Z\",\n"
-            + "  \"angle\" : 2.5,\n"
-            + "  \"binary\" : \"UQ==\",\n"
-            + "  \"probability\" : 0.5,\n"
-            + "  \"tag\" : \"RHX5NN621RS8JWZCHH4W23YHZL0TDCFL\",\n"
-            + "  \"text\" : \"This is a text string.\",\n"
-            + "  \"uri\" : \"https://foo.com/bar?baz=0\",\n"
-            + "  \"list\" : [\n"
-            + "    \"alpha\",\n"
-            + "    \"bravo\",\n"
-            + "    \"charlie\"\n"
-            + "  ],\n"
-            + "  \"map\" : {\n"
-            + "    \"alpha\" : 1,\n"
-            + "    \"bravo\" : 2,\n"
-            + "    \"charlie\" : 3\n"
-            + "  }\n"
-            + "}";
-
-    static private final String indentedJSON
-            = "{\n"
-            + "      \"foo\" : \"Foo\",\n"
-            + "      \"card\" : \"1234-XXXX-XXXX-3456\",\n"
-            + "      \"bar\" : 5,\n"
-            + "      \"timestamp\" : \"2014-04-11T04:01:14.139Z\",\n"
-            + "      \"angle\" : 2.5,\n"
-            + "      \"binary\" : \"UQ==\",\n"
-            + "      \"probability\" : 0.5,\n"
-            + "      \"tag\" : \"RHX5NN621RS8JWZCHH4W23YHZL0TDCFL\",\n"
-            + "      \"text\" : \"This is a text string.\",\n"
-            + "      \"uri\" : \"https://foo.com/bar?baz=0\",\n"
-            + "      \"list\" : [\n"
-            + "        \"alpha\",\n"
-            + "        \"bravo\",\n"
-            + "        \"charlie\"\n"
-            + "      ],\n"
-            + "      \"map\" : {\n"
-            + "        \"alpha\" : 1,\n"
-            + "        \"bravo\" : 2,\n"
-            + "        \"charlie\" : 3\n"
-            + "      }\n"
-            + "    }";
-
     /**
      * This unit test method tests the toString() method.
      * @throws java.net.URISyntaxException
@@ -112,19 +104,9 @@ public class SmartObjectTest {
         logger.info("Testing the toString() method for a SmartObject...");
 
         ExampleSmartObject object = new ExampleSmartObject();
-        object.foo = "Foo";
-        object.bar = 5;
-        object.timestamp = new DateTime("2014-04-11T04:01:14.139Z");
-        object.angle = new Angle(2.5);
-        object.binary = new BinaryString(bytes);
-        object.probability = new Probability(0.5);
-        object.tag = new Tag("RHX5NN621RS8JWZCHH4W23YHZL0TDCFL");
-        object.text = new TextString("This is a text string.");
-        object.uri = new URI("https://foo.com/bar?baz=0");
-        object.card = "1234-5678-9012-3456";
         String actualJSON = object.toString();
-        assertEquals(expectedJSON, actualJSON);
-        logger.info("  The JSON string: " + actualJSON);
+        logger.info("  The JSON string: {}", actualJSON);
+        assertEquals(expectedJson, actualJSON);
 
         logger.info("The toString() method testing completed.");
     }
@@ -138,19 +120,9 @@ public class SmartObjectTest {
         logger.info("Testing the toString(indentation) method for a SmartObject...");
 
         ExampleSmartObject object = new ExampleSmartObject();
-        object.foo = "Foo";
-        object.bar = 5;
-        object.timestamp = new DateTime("2014-04-11T04:01:14.139Z");
-        object.angle = new Angle(2.5);
-        object.binary = new BinaryString(bytes);
-        object.probability = new Probability(0.5);
-        object.tag = new Tag("RHX5NN621RS8JWZCHH4W23YHZL0TDCFL");
-        object.text = new TextString("This is a text string.");
-        object.uri = new URI("https://foo.com/bar?baz=0");
-        object.card = "1234-5678-9012-3456";
         String actualJSON = object.toString("    ");
-        assertEquals(indentedJSON, actualJSON);
-        logger.info("  The indented JSON string: " + actualJSON);
+        logger.info("  The indented JSON string: {}", actualJSON);
+        assertEquals(indentedJson, actualJSON);
 
         logger.info("The toString(indentation) method testing completed.");
     }
@@ -164,17 +136,6 @@ public class SmartObjectTest {
         logger.info("Testing the copy() and equals() methods for a SmartObject...");
 
         ExampleSmartSubclass object = new ExampleSmartSubclass();
-        object.foo = "Foo";
-        object.bar = 5;
-        object.baz = "Baz";
-        object.timestamp = new DateTime();
-        object.angle = new Angle(2.5);
-        object.binary = new BinaryString(bytes);
-        object.probability = new Probability(0.5);
-        object.tag = new Tag("RHX5NN621RS8JWZCHH4W23YHZL0TDCFL");
-        object.text = new TextString("This is a text string.");
-        object.uri = new URI("https://foo.com/bar?baz=0");
-        object.card = "1234-5678-9012-3456";
         ExampleSmartSubclass copy = object.copy();
         if (!object.equals(copy)) {
             fail("  The ihe copied object is not equal to the original.");
@@ -191,32 +152,11 @@ public class SmartObjectTest {
     public void testCompareTo() throws URISyntaxException {
         logger.info("Testing the compareTo() method for a SmartObject...");
 
-        DateTime now = new DateTime();
         ExampleSmartSubclass object1 = new ExampleSmartSubclass();
-        object1.foo = "Foo";
-        object1.bar = 5;
-        object1.baz = "Baz";
-        object1.timestamp = now;
-        object1.angle = new Angle(2.5);
-        object1.binary = new BinaryString(bytes);
-        object1.probability = new Probability(0.5);
-        object1.tag = new Tag("RHX5NN621RS8JWZCHH4W23YHZL0TDCFL");
-        object1.text = new TextString("This is a text string.");
-        object1.uri = new URI("https://foo.com/bar?baz=0");
-        object1.card = "1234-5678-9012-3456";
         ExampleSmartSubclass object2 = new ExampleSmartSubclass();
-        object2.foo = "Foo";
         object2.bar = 4;
-        object2.baz = "Baz";
-        object2.timestamp = now;
-        object2.angle = new Angle(2.5);
-        object2.binary = new BinaryString(bytes);
-        object2.probability = new Probability(0.5);
-        object2.tag = new Tag("RHX5NN621RS8JWZCHH4W23YHZL0TDCFL");
-        object2.text = new TextString("This is a text string.");
-        object2.uri = new URI("https://foo.com/bar?baz=0");
-        object2.card = "1234-5678-9012-3456";
-        if (object1.compareTo(object2) < 1) {
+        logger.info("  The modified JSON string: {}", object2.toExposedString());
+        if (object1.compareTo(object2) > -1) {
             fail("  The The compareTo() method failed to compare smart objects correctly.");
         }
 
