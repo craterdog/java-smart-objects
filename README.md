@@ -10,6 +10,7 @@ is to define a "smarter" `SmartObject<S extends SmartObject<S>>` class that impl
 methods:
 
  * `String toString()` (formatted as a 'censored' JSON string)
+ * `String toString(String indentation)` (formatted as an indented 'censored' JSON string)
  * `S copy()` (a type-safe version of clone())
  * `boolean equals(Object object)`
  * `int compareTo(S object)`

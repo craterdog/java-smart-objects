@@ -67,7 +67,7 @@
     </developers>
 
     <properties>
-        <java-primitive-types-version>3.6</java-primitive-types-version>
+        <java-primitive-types-version>3.7</java-primitive-types-version>
     </properties>
 
     <dependencies>
@@ -77,6 +77,26 @@
             <version>${java-primitive-types-version}</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin-version}</version>
+                <configuration>
+                    <!-- disable java.lang.* and java.util.* links for this project only to highlight
+                         the difference between Java collections and Crater Dog collections. -->
+                    <detectJavaApiLink>false</detectJavaApiLink>
+                    <links>
+                        <link>http://craterdog.github.io/java-core-interfaces/latest</link>
+                        <link>http://craterdog.github.io/java-general-utilities/latest</link>
+                        <link>http://craterdog.github.io/java-primitive-types/latest</link>
+                    </links>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <scm>
         <connection>scm:git:git@github.com:craterdog/java-smart-objects.git</connection>
