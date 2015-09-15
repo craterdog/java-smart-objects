@@ -25,6 +25,6 @@ public interface UseToIntegerAsValueMixIn {
      * @return An integer version of the object.
      */
     @JsonValue
-    public double toInteger();
+    public int toInteger();
 
 }
