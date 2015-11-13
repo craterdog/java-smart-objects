@@ -128,11 +128,9 @@ public class Censor {
             Pattern pattern = Pattern.compile(mask);
             Matcher matcher = pattern.matcher(string);
             if (!matcher.find()) {
-                logger.debug("Pattern {} not found in string {}.", mask, string);
                 return null;
             }
             int groupCount = matcher.groupCount();
-            logger.debug("Found {} groups in string {} with pattern {}.", groupCount, string, mask);
             if (groupCount == 0) {
                 return null;
             }
