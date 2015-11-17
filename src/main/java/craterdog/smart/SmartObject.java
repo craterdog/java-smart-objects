@@ -153,8 +153,8 @@ public abstract class SmartObject<S extends SmartObject<S>> implements Comparabl
 
 
     /**
-     * This protected method allows a subclass to add a class type that can be serialized using its
-     * toString() method to the mappers.
+     * This protected method allows a subclass to add to the mappers a class type that can be
+     * serialized using its toString().
      *
      * @param serializable The type of class that can be serialized using its toString() method.
      */
@@ -165,8 +165,21 @@ public abstract class SmartObject<S extends SmartObject<S>> implements Comparabl
 
 
     /**
-     * This protected method allows a subclass to add a Jackson module to the set of modules used by
-     * the mappers.
+     * This protected method allows a subclass to add to the mappers a class type that can be
+     * serialized using mixin class.
+     *
+     * @param serializable The type of class that can be serialized using its toString() method.
+     * @param mixin The type of class that can be used to serialized the serializable class.
+     */
+    protected void addSerializableClass(Class<?> serializable, Class<?> mixin) {
+        safeMapper.addMixIn(serializable, mixin);
+        fullMapper.addMixIn(serializable, mixin);
+    }
+
+
+    /**
+     * This protected method allows a subclass to add to the mappers a Jackson module that can
+     * be used to serialize and deserialize instances of the subclass.
      *
      * @param module The type of class that can be serialized using its toString() method.
      */
