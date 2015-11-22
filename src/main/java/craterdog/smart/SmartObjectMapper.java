@@ -30,14 +30,14 @@ import com.fasterxml.jackson.datatype.joda.JodaModule;
  * @author Derk Norton
  */
 @SuppressWarnings("serial")
-public class SmartObjectMapper extends ObjectMapper {
+class SmartObjectMapper extends ObjectMapper {
 
     /**
      * This constructor creates a new smart object mapper for the specified modules.
      *
      * @param modules The modules to be registered.
      */
-    public SmartObjectMapper(Module... modules) {
+    SmartObjectMapper(Module... modules) {
         super();
 
         // indent the output
@@ -74,12 +74,7 @@ public class SmartObjectMapper extends ObjectMapper {
             registerModule(module);
         }
 
-    }
-
-
-    @Override
-    public String writeValueAsString(Object value) throws JsonProcessingException {
-        return writer(_defaultPrettyPrinter()).writeValueAsString(value);
+        setDefaultPrettyPrinter(new BetterPrettyPrinter().withArrayIndenter(new DefaultIndenter()));
     }
 
 
@@ -93,38 +88,9 @@ public class SmartObjectMapper extends ObjectMapper {
      * @return The formatted string.
      * @throws JsonProcessingException The JSON object mapper was not able to serialize the object.
      */
-    public String writeValueAsString(Object value, String indentation) throws JsonProcessingException {
-        return writer(_defaultPrettyPrinter(indentation)).writeValueAsString(value);
-    }
-
-
-
-    /**
-     * This method overrides the same method in the super class and returns a better
-     * pretty printer implementation.  NOTE: This looks like it would set the default
-     * pretty printer for all uses by the object mapper but it does NOT.  I think this
-     * is a case of the original intent changing or being lost over time.  There is an
-     * enhancement request to address this problem, for more details see:
-     * https://github.com/FasterXML/jackson-databind/issues/689.
-     *
-     * @return The better pretty printer to be used to format the JSON output.
-     */
-    @Override
-    protected PrettyPrinter _defaultPrettyPrinter() {
-        return new BetterPrettyPrinter().withArrayIndenter(new DefaultIndenter());
-    }
-
-
-    /**
-     * This method behaves similarly to the <code>_defaultPrettyPrinter()</code> method
-     * except that it includes an indentation prefix that will be prepended to each line of the
-     * resulting string (except the first line).
-     *
-     * @param indentation The indentation string to be prepended to each line.
-     * @return The better pretty printer to be used to format the JSON output.
-     */
-    protected PrettyPrinter _defaultPrettyPrinter(String indentation) {
-        return new BetterPrettyPrinter(indentation).withArrayIndenter(new DefaultIndenter());
+    String writeValueAsString(Object value, String indentation) throws JsonProcessingException {
+        PrettyPrinter printer = new BetterPrettyPrinter(indentation).withArrayIndenter(new DefaultIndenter());
+        return writer(printer).writeValueAsString(value);
     }
 
 

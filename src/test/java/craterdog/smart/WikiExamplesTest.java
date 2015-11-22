@@ -52,14 +52,13 @@ public class WikiExamplesTest {
     @Test
     public void testSimpleAttributes() throws JsonProcessingException {
         logger.info("Testing simple attributes...");
-        SmartObjectMapper mapper = new SmartObjectMapper();
 
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("count", 5);
         map.put("pi", Math.PI);
         map.put("name", "Derk Norton");
         map.put("timestamp", new DateTime("2015-08-28T19:59:55.585Z"));
-        logger.info("  Simple Attributes: {}", mapper.writeValueAsString(map));
+        logger.info("  Simple Attributes: {}", SmartObject.toString(map));
 
         logger.info("Testing completed.");
     }
@@ -68,13 +67,12 @@ public class WikiExamplesTest {
     @Test
     public void testList() throws JsonProcessingException {
         logger.info("Testing list...");
-        SmartObjectMapper mapper = new SmartObjectMapper();
 
         List<String> list = new ArrayList<>();
         list.add("alpha");
         list.add("bravo");
         list.add("charlie");
-        logger.info("  List: {}", mapper.writeValueAsString(list));
+        logger.info("  List: {}", SmartObject.toString(list));
 
         logger.info("Testing completed.");
     }
@@ -83,11 +81,10 @@ public class WikiExamplesTest {
     @Test
     public void testMonoList() throws JsonProcessingException {
         logger.info("Testing mono list...");
-        SmartObjectMapper mapper = new SmartObjectMapper();
 
         List<DateTime> list = new ArrayList<>();
         list.add(new DateTime("2015-08-28T19:59:55.585Z"));
-        logger.info("  Mono List: {}", mapper.writeValueAsString(list));
+        logger.info("  Mono List: {}", SmartObject.toString(list));
 
         logger.info("Testing completed.");
     }
@@ -96,7 +93,6 @@ public class WikiExamplesTest {
     @Test
     public void testNestedLists() throws JsonProcessingException {
         logger.info("Testing nested lists...");
-        SmartObjectMapper mapper = new SmartObjectMapper();
 
         List<List<Integer>> list = new ArrayList<>();
         for (int i = 1; i < 4; i++) {
@@ -106,7 +102,7 @@ public class WikiExamplesTest {
             }
             list.add(sublist);
         }
-        logger.info("  Nested Lists: {}", mapper.writeValueAsString(list));
+        logger.info("  Nested Lists: {}", SmartObject.toString(list));
 
         logger.info("Testing completed.");
     }
@@ -115,7 +111,6 @@ public class WikiExamplesTest {
     @Test
     public void testNestedObjects() throws JsonProcessingException {
         logger.info("Testing nested objects...");
-        SmartObjectMapper mapper = new SmartObjectMapper();
 
         List<Map<String, Object>> list = new ArrayList<>();
         Map<String, Object> map = new LinkedHashMap<>();
@@ -127,7 +122,7 @@ public class WikiExamplesTest {
         map.put("email", "customerservice@bhnetwork.com");
         list.add(map);
 
-        logger.info("  Nested Objects: {}", mapper.writeValueAsString(list));
+        logger.info("  Nested Objects: {}", SmartObject.toString(list));
 
         logger.info("Testing completed.");
     }
@@ -136,7 +131,6 @@ public class WikiExamplesTest {
     @Test
     public void testNestedCollections() throws JsonProcessingException {
         logger.info("Testing nested collections...");
-        SmartObjectMapper mapper = new SmartObjectMapper();
 
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("name", "Crater Dog Technologites™");
@@ -146,7 +140,7 @@ public class WikiExamplesTest {
         address.add("Louisville, CO 80027");
         address.add("USA");
         map.put("address", address);
-        logger.info("  Nested Collections: {}", mapper.writeValueAsString(map));
+        logger.info("  Nested Collections: {}", SmartObject.toString(map));
 
         logger.info("Testing completed.");
     }
@@ -155,7 +149,6 @@ public class WikiExamplesTest {
     @Test
     public void testReals() throws JsonProcessingException {
         logger.info("Testing reals...");
-        SmartObjectMapper mapper = new SmartObjectMapper();
 
         List<Double> list = new ArrayList<>();
         double third = 1.0d / 80000.0d;
@@ -163,7 +156,7 @@ public class WikiExamplesTest {
             list.add(third);
             third *= 10.0d;
         }
-        logger.info("  Reals: {}", mapper.writeValueAsString(list));
+        logger.info("  Reals: {}", SmartObject.toString(list));
 
         logger.info("Testing completed.");
     }

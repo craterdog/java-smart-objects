@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 import static org.hamcrest.CoreMatchers.containsString;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -69,7 +70,7 @@ public class SmartObjectMapperTest {
         // it were a UTC date
         long _now = System.currentTimeMillis();
         Date now = new Date(_now);
-        HashMap<String, Date> map = new HashMap<>();
+        Map<String, Date> map = new HashMap<>();
         String nowString = new DateTime(_now, DateTimeZone.UTC).toString(DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ"));
         map.put("now", now);
 
@@ -79,7 +80,7 @@ public class SmartObjectMapperTest {
         assertThat(jsonRepresentation, containsString("\"now\" : \"" + nowString + "\""));
 
         logger.info("  Converting the JSON back to the map...");
-        HashMap<String, Date> copy = mapper.readValue(jsonRepresentation, new TypeReference<HashMap<String, Date>>() { });
+        Map<String, Date> copy = mapper.readValue(jsonRepresentation, new TypeReference<HashMap<String, Date>>() { });
         assertEquals(map, copy);
 
         logger.info("Embedded Java Date manipulation testing completed.\n");
@@ -106,7 +107,7 @@ public class SmartObjectMapperTest {
         assertThat(jsonRepresentation, containsString("\"now\" : \"" + nowString + "\""));
 
         logger.info("  Converting the JSON back to the map...");
-        HashMap<String, DateTime> copy = mapper.readValue(jsonRepresentation, new TypeReference<HashMap<String, DateTime>>() { });
+        Map<String, DateTime> copy = mapper.readValue(jsonRepresentation, new TypeReference<HashMap<String, DateTime>>() { });
         assertEquals(map, copy);
 
         logger.info("Embedded Java Date manipulation testing completed.\n");
@@ -176,7 +177,7 @@ public class SmartObjectMapperTest {
     }
 
     static <E extends SmartObject<E>> E polymorphicReader(SmartObjectMapper mapper) throws IOException {
-        return mapper.reader(SmartObject.class).readValue("{\"testAttribute\":\"success\"}");
+        return mapper.readerFor(SmartObject.class).readValue("{\"testAttribute\":\"success\"}");
     }
 
     /**

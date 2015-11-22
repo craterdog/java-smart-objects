@@ -9,7 +9,7 @@
  ************************************************************************/
 package craterdog.smart;
 
-import java.net.URISyntaxException;
+import java.io.IOException;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -97,26 +97,29 @@ public class SmartObjectTest {
 
     /**
      * This unit test method tests the toString() method.
-     * @throws java.net.URISyntaxException
+     * @throws java.io.IOException
      */
     @Test
-    public void testToString() throws URISyntaxException {
+    public void testToString() throws IOException {
         logger.info("Testing the toString() method for a SmartObject...");
 
         ExampleSmartObject object = new ExampleSmartObject();
-        String actualJSON = object.toString();
-        logger.info("  The JSON string: {}", actualJSON);
-        assertEquals(expectedJson, actualJSON);
+        String actualJson = object.toString();
+        logger.info("  The JSON string: {}", actualJson);
+        assertEquals(expectedJson, actualJson);
+
+        actualJson = object.toExposedString();
+        ExampleSmartObject copy = SmartObject.fromString(ExampleSmartObject.class, actualJson);
+        assertEquals(object, copy);
 
         logger.info("The toString() method testing completed.");
     }
 
     /**
      * This unit test method tests the toString(String indentation) method.
-     * @throws java.net.URISyntaxException
      */
     @Test
-    public void testToStringWithIndent() throws URISyntaxException {
+    public void testToStringWithIndent() {
         logger.info("Testing the toString(indentation) method for a SmartObject...");
 
         ExampleSmartObject object = new ExampleSmartObject();
@@ -129,27 +132,25 @@ public class SmartObjectTest {
 
     /**
      * This unit test method tests the copy() and equals(Object object) methods.
-     * @throws java.net.URISyntaxException
      */
     @Test
-    public void testCopyAndEquals() throws URISyntaxException {
+    public void testCopyAndEquals() {
         logger.info("Testing the copy() and equals() methods for a SmartObject...");
 
         ExampleSmartSubclass object = new ExampleSmartSubclass();
         ExampleSmartSubclass copy = object.copy();
         if (!object.equals(copy)) {
-            fail("  The ihe copied object is not equal to the original.");
+            fail("  The the copied object is not equal to the original.");
         }
 
-        logger.info("The copy() mnd equals() methods testing completed.");
+        logger.info("The copy() and equals() methods testing completed.");
     }
 
     /**
      * This unit test method tests the compareTo(Object object) method.
-     * @throws java.net.URISyntaxException
      */
     @Test
-    public void testCompareTo() throws URISyntaxException {
+    public void testCompareTo() {
         logger.info("Testing the compareTo() method for a SmartObject...");
 
         ExampleSmartSubclass object1 = new ExampleSmartSubclass();

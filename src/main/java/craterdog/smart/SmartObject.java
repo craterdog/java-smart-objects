@@ -37,10 +37,10 @@ public abstract class SmartObject<S extends SmartObject<S>> implements Comparabl
     */
 
     // define a safe mapper that censors any sensitive attributes marked with the @Sensitive annotation
-    private static final SmartObjectMapper safeMapper = new SmartObjectMapper(new CensorshipModule());
+    static private final SmartObjectMapper safeMapper = new SmartObjectMapper(new CensorshipModule());
 
     // define a full mapper that outputs all attributes as stored
-    private static final SmartObjectMapper fullMapper = new SmartObjectMapper();
+    static private final SmartObjectMapper fullMapper = new SmartObjectMapper();
 
 
     /**
@@ -149,6 +149,37 @@ public abstract class SmartObject<S extends SmartObject<S>> implements Comparabl
     @Override
     public int hashCode() {
         return toExposedString().hashCode();
+    }
+
+
+    /**
+     * This function takes string containing Javascript Object Notation (JSON) and
+     * uses it to construct the corresponding smart object.
+     *
+     * @param <T> The type of object being constructed.
+     * @param classType The concrete class type being constructed.
+     * @param json The JSON string.
+     * @return The corresponding object.
+     * @throws IOException The JSON string could not be parsed correctly.
+     */
+    static public <T extends Object> T fromString(Class<?> classType, String json) throws IOException {
+        return safeMapper.readerFor(classType).readValue(json);
+    }
+
+
+    /**
+     * This function generates a Javascript Object Notation (JSON) string from
+     * an object.
+     *
+     * @param object The object to be turned into a JSON string.
+     * @return The corresponding JSON string.
+     */
+    static public String toString(Object object) {
+        try {
+            return safeMapper.writeValueAsString(object);  // masks any sensitive attributes!
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("The attempt to map an object to a string failed", e);
+        }
     }
 
 

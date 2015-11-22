@@ -27,7 +27,7 @@ import org.slf4j.ext.XLoggerFactory;
  *
  * @author Yan Ma
  */
-public class CensorshipSerializer extends JsonSerializer<String> implements ContextualSerializer {
+class CensorshipSerializer extends JsonSerializer<String> implements ContextualSerializer {
 
     static private final XLogger logger = XLoggerFactory.getXLogger(CensorshipSerializer.class);
 
@@ -38,7 +38,7 @@ public class CensorshipSerializer extends JsonSerializer<String> implements Cont
      * The default constructor creates a serializer with no mask. None of the characters of the
      * string will be masked.
      */
-    public CensorshipSerializer() {
+    CensorshipSerializer() {
         this.mask = null;
         this.maskingCharacter = 'X';
     }
@@ -51,7 +51,7 @@ public class CensorshipSerializer extends JsonSerializer<String> implements Cont
      * @param mask The pattern to be used to mask the sensitive attribute.
      * @param maskingCharacter The character to be used for masking.
      */
-    public CensorshipSerializer(String mask, char maskingCharacter) {
+    CensorshipSerializer(String mask, char maskingCharacter) {
         this.mask = mask;
         this.maskingCharacter = maskingCharacter;
     }

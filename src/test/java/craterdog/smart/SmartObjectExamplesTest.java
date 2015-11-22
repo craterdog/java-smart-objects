@@ -96,16 +96,14 @@ public class SmartObjectExamplesTest {
         customer.lastPurchase = new DateTime();
         logger.info("  The customer information is {}", customer);
 
-        SmartObjectMapper mapper = new SmartObjectMapper();
         HashMap<String, Object> map = new HashMap<>();
         map.put("name", "Sheldon Cooper");
         String[] values = { "rock", "paper", "scissors", "lizard", "spock" };
         map.put("values", values);
-        String json = mapper.writeValueAsString(map);
+        String json = SmartObject.toString(map);
         logger.info("  The JSON string is {}", json);
 
-        mapper = new SmartObjectMapper(new CensorshipModule());
-        json = mapper.writeValueAsString(customer);
+        json = SmartObject.toString(customer);
         logger.info("  The JSON string is {}", json);
 
         logger.info("The code examples testing completed.");
