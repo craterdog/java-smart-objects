@@ -167,7 +167,7 @@ public abstract class SmartObject<S extends SmartObject<S>> implements Comparabl
      * @return The corresponding object.
      * @throws IOException The JSON string could not be parsed correctly.
      */
-    static public <T> T fromString(Class<?> classType, String json) throws IOException {
+    static public <T> T fromString(Class<T> classType, String json) throws IOException {
         return safeMapper.readerFor(classType).readValue(json);
     }
 
