@@ -10,6 +10,7 @@
 package craterdog.smart;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.Module;
 import craterdog.core.Composite;
 import java.io.IOException;
@@ -154,7 +155,11 @@ public abstract class SmartObject<S extends SmartObject<S>> implements Comparabl
 
     /**
      * This function takes string containing Javascript Object Notation (JSON) and
-     * uses it to construct the corresponding smart object.
+     * uses it to construct the corresponding smart object.  This function can be used
+     * for any non-parameterized type for example:
+     * <pre>
+     *     Customer customer = SmartObject.fromString(Customer.class, jsonString);
+     * </pre>
      *
      * @param <T> The type of object being constructed.
      * @param classType The concrete class type being constructed.
@@ -162,7 +167,28 @@ public abstract class SmartObject<S extends SmartObject<S>> implements Comparabl
      * @return The corresponding object.
      * @throws IOException The JSON string could not be parsed correctly.
      */
-    static public <T extends Object> T fromString(Class<?> classType, String json) throws IOException {
+    static public <T> T fromString(Class<?> classType, String json) throws IOException {
+        return safeMapper.readerFor(classType).readValue(json);
+    }
+
+
+    /**
+     * This function takes string containing Javascript Object Notation (JSON) and
+     * uses it to construct the corresponding smart object.  This function can be used
+     * for any parameterized type for example:
+     * <pre>
+     *     List&lt;String&gt; list = SmartObject.fromString(new TypeReference&lt;List&lt;String&gt;&gt;() { }, jsonString);
+     * </pre>
+     * The anonymous type declaration is required due to Java's erasure of parameterized
+     * types at runtime.
+     *
+     * @param <T> The type of object being constructed.
+     * @param classType The parameterized class type being constructed.
+     * @param json The JSON string.
+     * @return The corresponding object.
+     * @throws IOException The JSON string could not be parsed correctly.
+     */
+    static public <T> T fromString(TypeReference<T> classType, String json) throws IOException {
         return safeMapper.readerFor(classType).readValue(json);
     }
 

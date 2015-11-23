@@ -9,7 +9,10 @@
  ************************************************************************/
 package craterdog.smart;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -100,17 +103,46 @@ public class SmartObjectTest {
      * @throws java.io.IOException
      */
     @Test
-    public void testToString() throws IOException {
+    public void testFromString() throws IOException {
+        logger.info("Testing the fromString() method for a SmartObject...");
+
+        ExampleSmartObject object = new ExampleSmartObject();
+        String actualJson = object.toExposedString();
+        ExampleSmartObject copy = SmartObject.fromString(ExampleSmartObject.class, actualJson);
+        assertEquals(object, copy);
+
+        logger.info("The fromString() method testing completed.");
+    }
+
+    /**
+     * This unit test method tests the toString() method.
+     * @throws java.io.IOException
+     */
+    @Test
+    public void testFromStringWithParameterizedType() throws IOException {
+        logger.info("Testing the fromStringWithParameterizedType() method for a SmartObject...");
+
+        List<String> list = new ArrayList<>();
+        list.add("foo");
+        list.add("bar");
+        String actualJson = SmartObject.toString(list);
+        List<String> copy = SmartObject.fromString(new TypeReference<List<String>>() {}, actualJson);
+        assertEquals(list, copy);
+
+        logger.info("The fromStringWithParameterizedType() method testing completed.");
+    }
+
+    /**
+     * This unit test method tests the toString() method.
+     */
+    @Test
+    public void testToString() {
         logger.info("Testing the toString() method for a SmartObject...");
 
         ExampleSmartObject object = new ExampleSmartObject();
         String actualJson = object.toString();
         logger.info("  The JSON string: {}", actualJson);
         assertEquals(expectedJson, actualJson);
-
-        actualJson = object.toExposedString();
-        ExampleSmartObject copy = SmartObject.fromString(ExampleSmartObject.class, actualJson);
-        assertEquals(object, copy);
 
         logger.info("The toString() method testing completed.");
     }
