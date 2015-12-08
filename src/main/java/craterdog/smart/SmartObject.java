@@ -12,6 +12,7 @@ package craterdog.smart;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.Module;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import craterdog.core.Composite;
 import java.io.IOException;
 
@@ -206,6 +207,38 @@ public abstract class SmartObject<S extends SmartObject<S>> implements Comparabl
         } catch (JsonProcessingException e) {
             throw new RuntimeException("The attempt to map an object to a string failed", e);
         }
+    }
+
+
+    /**
+     * This function generates an indented Javascript Object Notation (JSON) string from
+     * an object.
+     *
+     * @param object The object to be turned into a JSON string.
+     * @param indentation The amount of space that should be prepended to each line.
+     * @return The corresponding JSON string.
+     */
+    static public String toString(Object object, String indentation) {
+        try {
+            return safeMapper.writeValueAsString(object, indentation);  // masks any sensitive attributes!
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("The attempt to map an object to a string failed", e);
+        }
+    }
+
+
+    /**
+     * This function generates a new object mapper with the specified modules.  For example,
+     * to create object mapper that masks sensitive attributes do the following:
+     * <pre>
+     * ObjectMapper mapper = SmartObject.createMapper(new CensorshipModule());
+     * </pre>
+     *
+     * @param modules The list of modules that should be added to the object mapper.
+     * @return A new object mapper containing the specified modules.
+     */
+    static public ObjectMapper createMapper(Module... modules) {
+        return new SmartObjectMapper(modules);
     }
 
 
