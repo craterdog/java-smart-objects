@@ -28,7 +28,7 @@ import java.io.IOException;
  *
  * @param <S> The concrete type of the smart object.
  */
-public abstract class SmartObject<S extends SmartObject<S>> implements Comparable<S>, Composite {
+public abstract class SmartObject<S extends SmartObject<S>> implements Composite<S> {
 
     /*
     NOTE: the following mappers are defined as static attributes so that they are shared across
@@ -130,7 +130,8 @@ public abstract class SmartObject<S extends SmartObject<S>> implements Comparabl
      * @param <T> The concrete type of the smart object.
      * @return An exact copy of the smart object.
      */
-    public <T extends SmartObject<S>> T copy() {
+    @Override
+    public <T extends Composite<S>> T copy() {
         try {
             String fullJSON = fullMapper.writeValueAsString(this);
             @SuppressWarnings("unchecked")
