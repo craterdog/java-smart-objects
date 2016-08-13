@@ -67,7 +67,7 @@
     </developers>
 
     <properties>
-        <java-primitive-types-version>3.9-SNAPSHOT</java-primitive-types-version>
+        <java-primitive-types-version>3.9</java-primitive-types-version>
     </properties>
 
     <dependencies>
