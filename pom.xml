@@ -67,7 +67,7 @@
     </developers>
 
     <properties>
-        <java-primitive-types-version>3.10</java-primitive-types-version>
+        <java-primitive-types-version>3.11</java-primitive-types-version>
     </properties>
 
     <dependencies>
