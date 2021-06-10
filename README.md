@@ -31,10 +31,10 @@ The following highlights the various components that are provided by this projec
 ### Quick Links
 For more detail on this project click on the following links:
 
- * [javadocs](http://craterdog.github.io/java-smart-objects/latest/index.html)
+ * [javadocs](https://craterdog.github.io/java-smart-objects/latest/index.html)
  * [wiki](https://github.com/craterdog/java-smart-objects/wiki)
  * [release notes](https://github.com/craterdog/java-smart-objects/wiki/releases)
- * [website](http://craterdog.com)
+ * [website](https://craterdog.com)
 
 ### Getting Started
 To get started using these utilities, include the following dependency in your maven pom.xml file:
@@ -56,4 +56,4 @@ click [here](https://github.com/craterdog/maven-parent-poms) to get started down
 companies for their contributions to the development and testing of various
 components within this project:
 
- * *Blackhawk Network* (http://blackhawknetwork.com)
+ * *Blackhawk Network* (https://blackhawknetwork.com)
