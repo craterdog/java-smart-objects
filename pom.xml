@@ -15,7 +15,7 @@
     <parent>
         <groupId>com.craterdog.maven-parent-poms</groupId>
         <artifactId>java-component</artifactId>
-        <version>3.17</version>
+        <version>3.20</version>
     </parent>
 
     <organization>
@@ -67,7 +67,7 @@
     </developers>
 
     <properties>
-        <java-primitive-types-version>3.11</java-primitive-types-version>
+        <java-primitive-types-version>3.12</java-primitive-types-version>
     </properties>
 
     <dependencies>
@@ -94,9 +94,8 @@
                         <configuration>
                             <detectJavaApiLink>true</detectJavaApiLink>
                             <links>
-                                <link>https://craterdog.github.io/java-core-interfaces/latest/</link>
-                                <link>https://craterdog.github.io/java-general-utilities/latest/</link>
                                 <link>https://craterdog.github.io/java-primitive-types/latest/</link>
+                                <link>https://craterdog.github.io/java-core-interfaces/latest/</link>
                             </links>
                         </configuration>
                     </plugin>

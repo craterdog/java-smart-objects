@@ -9,7 +9,14 @@
  ************************************************************************/
 package craterdog.smart;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Map;
+import java.util.TimeZone;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude.Value;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.PrettyPrinter;
 import com.fasterxml.jackson.core.util.DefaultIndenter;
@@ -47,14 +54,17 @@ class SmartObjectMapper extends ObjectMapper {
         disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 
         // don't serialize nulls
-        disable(SerializationFeature.WRITE_NULL_MAP_VALUES);
         setSerializationInclusion(Include.NON_NULL);
+        configOverride(Map.class).setInclude(Value.construct(JsonInclude.Include.NON_NULL, JsonInclude.Include.NON_NULL));
 
         // don't fail on unknown properties
         configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-        // write dates out as string (not milliseconds since epoch <- timestamp)
+        // write dates out as timestamp string in GMT (not milliseconds since epoch)
         disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        final DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        format.setTimeZone(TimeZone.getTimeZone("GMT"));
+        setDateFormat(format);
 
         // handle joda types
         registerModule(new JodaModule());

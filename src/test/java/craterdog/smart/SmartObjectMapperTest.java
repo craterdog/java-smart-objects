@@ -22,7 +22,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.ISODateTimeFormat;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.ext.XLogger;
@@ -71,13 +71,13 @@ public class SmartObjectMapperTest {
         long _now = System.currentTimeMillis();
         Date now = new Date(_now);
         Map<String, Date> map = new HashMap<>();
-        String nowString = new DateTime(_now, DateTimeZone.UTC).toString(DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ"));
+        String nowString = new DateTime(_now, DateTimeZone.UTC).toString(DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
         map.put("now", now);
 
         logger.info("  Converting a map with embedded date to JSON...");
         String jsonRepresentation = mapper.writeValueAsString(map);
         logger.info("  Confirming that {} contains {}", jsonRepresentation, nowString);
-        assertThat(jsonRepresentation, containsString("\"now\" : \"" + nowString + "\""));
+        assertTrue(jsonRepresentation.contains("\"now\" : \"" + nowString + "\""));
 
         logger.info("  Converting the JSON back to the map...");
         Map<String, Date> copy = mapper.readValue(jsonRepresentation, new TypeReference<HashMap<String, Date>>() { });
@@ -104,7 +104,7 @@ public class SmartObjectMapperTest {
         logger.info("  Converting a map with embedded JODA date to JSON...");
         String jsonRepresentation = mapper.writeValueAsString(map);
         logger.info("  Confirming that {} contains {}", jsonRepresentation, nowString);
-        assertThat(jsonRepresentation, containsString("\"now\" : \"" + nowString + "\""));
+        assertTrue(jsonRepresentation.contains("\"now\" : \"" + nowString + "\""));
 
         logger.info("  Converting the JSON back to the map...");
         Map<String, DateTime> copy = mapper.readValue(jsonRepresentation, new TypeReference<HashMap<String, DateTime>>() { });
