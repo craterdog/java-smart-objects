@@ -1,5 +1,7 @@
 ![Java Smart Objects](https://github.com/craterdog/java-smart-objects/blob/master/docs/images/einstein.jpg)
 
+# THIS REPOSITORY HAS BEEN ARCHIVED AND IS NO LONGER SUPPORTED
+
 ### Java Smart Objects
 The `java.lang.Object` class defines a core set of methods that all classes should implement.
 Requiring each developer to implement these methods in each of their classes is tedious and
